@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: taskflow-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: taskflow
+      MYSQL_USER: taskflow
+      MYSQL_PASSWORD: taskflow
+    ports:
+      - "3306:3306"
+    volumes:
+      - taskflow_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: taskflow-backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql:3306/taskflow?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      DATABASE_USERNAME: taskflow
+      DATABASE_PASSWORD: taskflow
+      JWT_SECRET: local-dev-secret-change-in-production-32chars
+      CORS_ORIGINS: http://localhost:3000
+    ports:
+      - "8080:8080"
+
+volumes:
+  taskflow_mysql_data:
