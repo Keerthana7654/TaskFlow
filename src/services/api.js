@@ -7,6 +7,8 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
   timeout: 10000,
 });
+console.log("VITE_API_URL =", import.meta.env.VITE_API_URL);
+console.log("BASE_URL =", BASE_URL);
 
 // ─── Request interceptor: attach JWT ─────────────────────────────────────────
 api.interceptors.request.use(
