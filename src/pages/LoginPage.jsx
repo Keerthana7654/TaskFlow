@@ -107,11 +107,6 @@ export default function LoginPage() {
         <div className="auth-footer">
           Don't have an account? <Link to="/register">Create one</Link>
         </div>
-
-        <div style={{ marginTop: 24, padding: 16, background: 'var(--surface2)', borderRadius: 'var(--radius)', fontSize: '0.8rem', color: 'var(--text2)' }}>
-          <strong style={{ color: 'var(--text3)', display: 'block', marginBottom: 4 }}>Demo credentials</strong>
-          Admin: admin@taskflow.com / Admin@123
-        </div>
       </div>
     </div>
   );
